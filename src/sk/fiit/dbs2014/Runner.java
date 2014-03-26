@@ -1,20 +1,21 @@
 package sk.fiit.dbs2014;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
-import java.util.Random;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+
+import sk.fiit.dbs2014.models.Restaurant;
 import sk.fiit.dbs2014.models.Student;
+import sk.fiit.dbs2014.persistencemanagers.RestaurantManager;
 import sk.fiit.dbs2014.persistencemanagers.StudentManager;
+import sk.fiit.dbs2014.utils.HibernateUtil;
 
 
 public class Runner {
@@ -24,38 +25,50 @@ public class Runner {
 	 * @throws SQLException 
 	 */
 	public static void main(String[] args) throws SQLException {
-		
-		StudentManager sm = new StudentManager();
-
-		for (Student student : sm.getAllStudents()) {
-			System.out.println(student.getName() + ":" + student.getVsp());
-		}
-		
-		for (Student student : StudentManager.getAllStudentsOld()) {
-			System.out.println(student.getName() + ":" + student.getVsp());
-		}
+		/** Getting the Session Factory and session */
+	    SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	    Session session = sessionFactory.getCurrentSession();
+	    /** Starting the Transaction */
+	    Transaction tx = session.beginTransaction();
+	    /** Creating Pojo */
+	    Student student = new Student();
+	    student.setName("Peter Citrónový");
+	    student.setVsp(2.0);
+	    /** Saving POJO */
+	    session.save(student);
 	    
-		
-		List<Student> students = new LinkedList<Student>();
-		students.add(new Student("Fero Transakcny7", 2.3));
-		students.add(new Student("Jozo Paralelny7", 8.5));
-
-		List<Integer> keys = sm.insertStudentsWithKeys(students);
-		
-		HashMap<Integer, Double> map = new HashMap<Integer,Double>();
-		
-		for(Integer key : keys){
-			Double newVsp = (double)(Math.random()*5);
-			System.out.println("new student id:" + key + " and his new vsp:" + newVsp);
-			map.put(key, newVsp);
-		}
-
-		sm.updateStudents("vsp", map);
-		
-		for (Student student : sm.getAllStudents()) {
-			System.out.println(student.getName() + ":" + student.getVsp());
-		}
+	    List<Restaurant> restaurants = RestaurantManager.getAllRestaurants();
+	    for(Iterator<Restaurant> it = restaurants.iterator();it.hasNext();) {
+	    	Restaurant res = it.next();
+	    	System.out.println(res.getName() + ":" + res.getCapacity());
+	    }
+	    System.out.println("Big restaurants:");
+	    restaurants = RestaurantManager.getAllBigRestaurants(100);
+	    for(Iterator<Restaurant> it = restaurants.iterator();it.hasNext();) {
+	    	Restaurant res = it.next();
+	    	System.out.println(res.getName() + ":" + res.getCapacity());
+	    }
 	    
+	    Student mrkvicka = (Student) session.get(Student.class, 1);
+	    System.out.println("Mrkvicka bol na obede " + mrkvicka.getLunches().size() + " krat");
+	    
+	    
+	    Criteria crit = session.createCriteria(Student.class);
+	    crit.add(Restrictions.like("name", "Jozko Mrkvicka"));
+	    List<Student> students = crit.list();
+	    
+	    for(Iterator<Student> it = students.iterator(); it.hasNext();){
+	    	Student s = it.next();
+	    	System.out.println(s.getName() + ":" + s.getVsp() + ", obedov:" + s.getLunches().size());
+	    }
+
+	    /** Commiting the changes */
+	    tx.commit();
+	    /** Closing Session */
+	    if(session.isOpen()){
+	    	session.close();
+	    }
+//	    	
+//
 	}
-
 }
