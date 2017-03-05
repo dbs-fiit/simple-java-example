@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014.models;
+package sk.fiit.dbs.models;
 
 public class Restaurant {
 	private Integer id;

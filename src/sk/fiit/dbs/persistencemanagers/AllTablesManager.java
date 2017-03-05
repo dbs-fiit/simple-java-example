@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014.persistencemanagers;
+package sk.fiit.dbs.persistencemanagers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,20 +9,22 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
-import sk.fiit.dbs2014.models.Student;
+import org.postgresql.ds.PGPoolingDataSource;
+
+import sk.fiit.dbs.models.Student;
 
 public abstract class AllTablesManager {
+	protected PGPoolingDataSource source;
+	
+	public AllTablesManager(PGPoolingDataSource source){
+		this.source = source;
+	}
 	
 	protected List selectQuery(String queryString) throws SQLException{
 		List result = new LinkedList();
-		Connection conn = null;
 		Statement stmt = null;
-		Properties connectionProps = new Properties();
-	    connectionProps.put("user", "postgres");
-	    connectionProps.put("password", "postgres");
-	    String connectionString = "jdbc:postgresql://localhost:5432/DBS2014";
+		Connection conn = this.source.getConnection();
 	    try {
-			conn = DriverManager.getConnection(connectionString, connectionProps);
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(queryString);
 			while(rs.next()){
@@ -32,7 +34,8 @@ public abstract class AllTablesManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			stmt.close();
+			try { if (stmt != null) stmt.close(); } catch (Exception e) {};
+		    try { if (conn != null) conn.close(); } catch (Exception e) {};
 			return result;
 		}
 	}
