@@ -158,10 +158,8 @@ public class StudentManager extends AllTablesManager {
 								}
 							}
 			}
-			conn.commit();
-			
 //			throw new SQLException("Tuto vynimku sme vyhodili naschval");
-
+			conn.commit();
 
 		} catch (SQLException e) {
 			if (conn != null) {

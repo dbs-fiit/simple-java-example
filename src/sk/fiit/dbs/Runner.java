@@ -48,30 +48,30 @@ public class Runner {
 		}
 		
 		System.out.println("#####################################");
-		
-		for (Student student : sm.getAllStudentsOld()) {
-			System.out.println(student.getName() + ":" + student.getVsp());
-		}
-
-		//		List<Student> students = new LinkedList<Student>();
-//		students.add(new Student("Fero Transakcny7", 2.3));
-//		students.add(new Student("Jozo Paralelny7", 8.5));
-//
-//		List<Integer> keys = sm.insertStudentsWithKeys(students);
 //		
-//		HashMap<Integer, Double> map = new HashMap<Integer,Double>();
-//		
-//		for(Integer key : keys){
-//			Double newVsp = (double)(Math.random()*5);
-//			System.out.println("new student id:" + key + " and his new vsp:" + newVsp);
-//			map.put(key, newVsp);
-//		}
-//
-//		sm.updateStudents("vsp", map);
-//		
-//		for (Student student : sm.getAllStudents()) {
+//		for (Student student : sm.getAllStudentsOld()) {
 //			System.out.println(student.getName() + ":" + student.getVsp());
 //		}
+
+		List<Student> students = new LinkedList<Student>();
+		students.add(new Student("Fero Transakcny7", 2.3));
+		students.add(new Student("Jozo Paralelny7", 8.5));
+
+		List<Integer> keys = sm.insertStudentsWithKeys(students);
+		
+		HashMap<Integer, Double> map = new HashMap<Integer,Double>();
+		
+		for(Integer key : keys){
+			Double newVsp = (double)(Math.random()*5);
+			System.out.println("new student id:" + key + " and his new vsp:" + newVsp);
+			map.put(key, newVsp);
+		}
+
+		sm.updateStudents("vsp", map);
+		
+		for (Student student : sm.getAllStudents()) {
+			System.out.println(student.getName() + ":" + student.getVsp());
+		}
 	    
 	}
 
