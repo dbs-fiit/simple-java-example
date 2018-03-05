@@ -1,4 +1,4 @@
-simple-java-example
+Marcus Revaj
 ===================
 
 Simple example of creating, retrieving and updating tuples in relational database using JDBC.
