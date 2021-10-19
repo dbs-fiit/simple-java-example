@@ -1,4 +1,4 @@
-package sk.fiit.dbs.persistencemanagers;
+package sk.crutch.dbs.persistencemanagers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,31 +14,25 @@ import java.util.Properties;
 
 import org.postgresql.ds.PGPoolingDataSource;
 
-import sk.fiit.dbs.models.Student;
+import sk.crutch.dbs.ConnectionProvider;
+import sk.crutch.dbs.models.Student;
 
 public class StudentManager extends AllTablesManager {
 	
-	public StudentManager(PGPoolingDataSource source){
-		super(source);
+	public StudentManager(ConnectionProvider provider){
+		super(provider);
 	}
 	
-	protected Student processRow(ResultSet rs) throws SQLException{
-		return(new Student(rs.getString("name"),rs.getDouble("vsp")));
-	}
-	
-	public List<Student> getAllStudents() throws SQLException
-	{
-		return(selectQuery("SELECT * FROM students"));
-	}
-	
-	public List<Student> getAllStudentsOld() throws SQLException{
+	public List<Student> getAllStudents() throws SQLException{
 		List<Student> result = new LinkedList<Student>();
-		Connection conn = null;
+		Connection conn = super.provider.getConnection();
+		if (conn == null) {
+			return result;
+		}
+		
 		Statement stmt = null;
 		try
 		{
-		    conn = super.source.getConnection();
-		    // use connection
 		    stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM students");
 			while(rs.next()){
@@ -61,7 +55,17 @@ public class StudentManager extends AllTablesManager {
 		
 	    return result;
 	}
-
+	
+	public List<Student> getAllStudentsViaTemplateMethod() throws SQLException
+	{
+		return(selectQuery("SELECT * FROM students"));
+	}
+	
+	protected Student processRow(ResultSet rs) throws SQLException{
+		return(new Student(rs.getString("name"),rs.getDouble("vsp")));
+	}
+	
+	
 	public void updateStudents(String attribute, HashMap<Integer,Double> vsps) throws SQLException {
 		Connection conn = null;
 		PreparedStatement stmt = null;

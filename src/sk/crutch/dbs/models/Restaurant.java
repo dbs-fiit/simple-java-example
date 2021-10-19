@@ -1,4 +1,4 @@
-package sk.fiit.dbs.models;
+package sk.crutch.dbs.models;
 
 public class Restaurant {
 	private Integer id;

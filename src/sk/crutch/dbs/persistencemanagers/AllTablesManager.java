@@ -1,4 +1,4 @@
-package sk.fiit.dbs.persistencemanagers;
+package sk.crutch.dbs.persistencemanagers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,19 +11,22 @@ import java.util.Properties;
 
 import org.postgresql.ds.PGPoolingDataSource;
 
-import sk.fiit.dbs.models.Student;
+import sk.crutch.dbs.ConnectionProvider;
+import sk.crutch.dbs.models.Student;
 
 public abstract class AllTablesManager {
-	protected PGPoolingDataSource source;
 	
-	public AllTablesManager(PGPoolingDataSource source){
-		this.source = source;
+	protected ConnectionProvider provider;
+	
+	public AllTablesManager(ConnectionProvider provider){
+		this.provider = provider;
 	}
+	
 	
 	protected List selectQuery(String queryString) throws SQLException{
 		List result = new LinkedList();
 		Statement stmt = null;
-		Connection conn = this.source.getConnection();
+		Connection conn = this.provider.getConnection();
 	    try {
 			stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(queryString);
