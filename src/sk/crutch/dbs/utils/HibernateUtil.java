@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014.utils;
+package sk.crutch.dbs.utils;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;

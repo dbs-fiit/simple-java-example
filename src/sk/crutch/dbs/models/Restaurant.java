@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014.models;
+package sk.crutch.dbs.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

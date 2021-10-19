@@ -9,7 +9,7 @@
 
         <!-- Database connection settings -->
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost:5432/dbs_2019</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
         <property name="connection.username">dbs</property>
         <property name="connection.password">dbs</property>
 
@@ -31,9 +31,9 @@
         <!-- <property name="hbm2ddl.auto">create</property> -->
 
         <!-- Names the annotated entity class -->
-        <mapping class="sk.fiit.dbs2014.models.Student"/>
-        <mapping class="sk.fiit.dbs2014.models.Restaurant"/>
-        <mapping class="sk.fiit.dbs2014.models.Lunch"/>
+        <mapping class="sk.crutch.dbs.models.Student"/>
+        <mapping class="sk.crutch.dbs.models.Restaurant"/>
+        <mapping class="sk.crutch.dbs.models.Lunch"/>
 
     </session-factory>
 

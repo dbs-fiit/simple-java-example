@@ -1,12 +1,12 @@
-package sk.fiit.dbs2014.persistencemanagers;
+package sk.crutch.dbs.persistencemanagers;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
 
-import sk.fiit.dbs2014.models.Restaurant;
-import sk.fiit.dbs2014.utils.HibernateUtil;
+import sk.crutch.dbs.models.Restaurant;
+import sk.crutch.dbs.utils.HibernateUtil;
 
 public class RestaurantManager {
 	public static List<Restaurant> getAllRestaurants(){

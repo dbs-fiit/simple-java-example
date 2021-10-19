@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014.persistencemanagers;
+package sk.crutch.dbs.persistencemanagers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import sk.fiit.dbs2014.models.Student;
+import sk.crutch.dbs.models.Student;
 
 public class StudentManager extends AllTablesManager {
 	

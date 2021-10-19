@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014;
+package sk.crutch.dbs;
 
 
 import java.sql.SQLException;
@@ -11,11 +11,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-import sk.fiit.dbs2014.models.Restaurant;
-import sk.fiit.dbs2014.models.Student;
-import sk.fiit.dbs2014.persistencemanagers.RestaurantManager;
-import sk.fiit.dbs2014.persistencemanagers.StudentManager;
-import sk.fiit.dbs2014.utils.HibernateUtil;
+import sk.crutch.dbs.models.Restaurant;
+import sk.crutch.dbs.models.Student;
+import sk.crutch.dbs.persistencemanagers.RestaurantManager;
+import sk.crutch.dbs.persistencemanagers.StudentManager;
+import sk.crutch.dbs.utils.HibernateUtil;
 
 
 public class Runner {
@@ -31,11 +31,11 @@ public class Runner {
 	    /** Starting the Transaction */
 	    Transaction tx = session.beginTransaction();
 	    /** Creating Pojo */
-	    Student student = new Student();
-	    student.setName("Peter Citrónový");
-	    student.setVsp(2.0);
+//	    Student student = new Student();
+//	    student.setName("Peter Citrónový");
+//	    student.setVsp(2.0);
 	    /** Saving POJO */
-	    session.save(student);
+//	    session.save(student);
 	    
 	    List<Restaurant> restaurants = RestaurantManager.getAllRestaurants();
 	    for(Iterator<Restaurant> it = restaurants.iterator();it.hasNext();) {

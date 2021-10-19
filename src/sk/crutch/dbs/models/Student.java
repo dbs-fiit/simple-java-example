@@ -1,4 +1,4 @@
-package sk.fiit.dbs2014.models;
+package sk.crutch.dbs.models;
 
 import java.util.Set;
 
@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import sk.fiit.dbs2014.models.Lunch;
+import sk.crutch.dbs.models.Lunch;
 
 @Entity
 @Table(name = "students")
